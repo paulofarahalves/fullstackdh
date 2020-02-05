@@ -50,20 +50,20 @@ const vacinarPet = pet => {
 };
 
 const listarPets = () => {
-    console.log("** " + PETSHOP + " **");
-    let i = 0;
-    while(i < pets.length){
-    console.log("--------------------------------");
-    console.log("Nome: " + pets[i].nome);
-    console.log("Tipo: " + pets[i].tipo);
-    console.log("Raça: " + pets[i].raca);
-    console.log("Idade: " + pets[i].idade);
-    console.log("Genero: " + (pets[i].genero == "F" ? "Femea" : "Macho"));
-    console.log("Vacinado: " + (pets[i].vacinado ? "Sim" : "Não"));
-    console.log("Serviços: " + pets[i].servicos);
-    i++;    
+    for (let pet of pets){
+    console.log(`
+    ------------------------------------
+    Nome: ${pet.nome}
+    Tipo: ${pet.tipo}
+    Raça: ${pet.raca}
+    Idade: ${pet.idade}
+    Genero: ${pet.genero}
+    Vacinado: ${pet.vacinado ? "Sim" : "Não"}
+    Serviços: ${pet.servicos}`);
     }    
 };
+
+// listarPets();
 
 const validarDados = (dadosPet) => {
     return (
@@ -85,7 +85,7 @@ const adicionarPet = novoPet => {
         }
 
         pets.push(novoPet);
-        console.log(novoPet.nome + " foi adicionado com sucesso!");
+        console.log(`${novoPet.nome} foi adicionado com sucesso!`);
 
     } else {
         console.log("Ops, insira um objeto válido!");
@@ -105,24 +105,24 @@ const adicionarPet = novoPet => {
 
 const tosarPet = pet => {
     pet.servicos.push('tosa');
-    console.log(pet.nome + " está com pêlo aparado!");
+    console.log(`${pet.nome} está com pêlo aparado!`);
 };
 
 const darBanhoPet = pet => {
     pet.servicos.push('banho');
-    console.log(pet.nome + " está de banho tomado!");
+    console.log(`${pet.nome} está de banho tomado!`);
 };
 
 const cortarUnhasPet = pet => {
     pet.servicos.push('corte de unha');
-    console.log(pet.nome + " cortou as unhas!");
+    console.log(`${pet.nome} cortou as unhas!`);
 };
 
 const atenderPet = (pet, servicos) => {
-    console.log("Bem vindo, " + pet.nome);
+    console.log(`Bem vindo, ${pet.nome}`);
 
-    for (let i = 0; i < servicos.length; i++) {
-        servicos[i](pet);        
+    for (let servico of servicos) {
+        servico(pet);        
     }
     
     const pagar = () => {
@@ -134,33 +134,48 @@ const atenderPet = (pet, servicos) => {
     console.log("Volte sempre!");
 };
 
-atenderPet(pets[3], [darBanhoPet,cortarUnhasPet, tosarPet])
+// atenderPet(pets[3], [darBanhoPet, cortarUnhasPet, tosarPet])
 
 const quantidadePetsVacinados = pets => {
     let petsVacinados=[];
     let petsNaoVacinados=[];
-    for(let i=0;i<pets.length;i++){
-        if (pets[i].vacinado){
-            petsVacinados.push(pets[i])
+    for(let pet of pets){
+        if (pet.vacinado){
+            petsVacinados.push(pet)
         } else{
-            petsNaoVacinados.push(pets[i])
+            petsNaoVacinados.push(pet)
         }
     }
-    console.log("Foram encontrados " + petsVacinados.length + " pets vacinados.")
-    console.log("Foram encontrados " + petsNaoVacinados.length + " pets não vacinados.")
+    console.log(`
+    Foram encontrados ${petsVacinados.length} pets vacinados.
+    Foram encontrados ${petsNaoVacinados.length} pets não vacinados.
+    `);
 }
 
-quantidadePetsVacinados(pets)
+// quantidadePetsVacinados(pets)
 
 const campanhaVacina = pets => {
+    console.log("Campanha de vacina 2020\nvacinando...");
     let contadorVacinados = 0;
-        for(let i=0;i<pets.length;i++){
-        if(!pets[i].vacinado){
-            pets[i].vacinado = true;
+        for(pet of pets){
+        if(!pet.vacinado){
+            pet.vacinado = true;
             contadorVacinados++;
         }                
     }
-    console.log(contadorVacinados + " pets foram vacinados nessa campanha!");
+    console.log(`${contadorVacinados} pets foram vacinados nessa campanha!`);
 };
 
-campanhaVacina(pets);
+// campanhaVacina(pets);
+
+// const buscarNome = nome =>{
+//     for(nome of pets){
+//         if(nome == pets.nome){
+//             console.log(`${nome} foi encontrado!`);
+//         }else{
+//             console.log(`${nome} não foi encontrado!`);
+//         }
+//     }
+// }
+
+// buscarNome("Batman")
